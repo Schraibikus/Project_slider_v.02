@@ -1,12 +1,18 @@
 const images = [{
 	url:'images/jpg/image_01.jpg',
-	title: 'Rostov-on-Don, Admiral'
+	title: 'Rostov-on-Don, Admiral',
+	text: 'Rostov-on-Don LCD admiral',
+	square: '81 m2'
 }, {
 	url:'images/jpg/image_02.jpg',
-	title: 'Sochi Thieves'
+	title: 'Sochi Thieves',
+	text: 'Sochi Thieves',
+	square: '105 m2'
 }, {
 	url:'images/jpg/image_03.jpg',
-	title: 'Rostov-on-Don Patriotic'
+	title: 'Rostov-on-Don Patriotic',
+	text: 'Rostov-on-Don Patriotic',
+	square: '93 m2'
 }];
 
 function initSlider(){
@@ -15,11 +21,16 @@ function initSlider(){
 	let sliderArrows = document.querySelector('.slider__arrows');
 	let sliderDots = document.querySelector('.slider__dots');
 	let sliderCity = document.querySelector('.slider__city');
+	let sliderText = document.querySelector('.slider__text');
+	let sliderSquare = document.querySelector('.square__text');
 
+	
 	initImages();
 	initArrows();
 	initDots();
 	initCity();
+	initText();
+	initSquare();
 
 	function initImages(){
     images.forEach((image, index) => {
@@ -64,8 +75,28 @@ function initSlider(){
 			city.addEventListener('click', function(){
 				moveSlider(this.dataset.index);
 			})
-		})
+		});
 	}
+
+	function initText(){
+		let textP = `<p class="slider__text>${images[0].text}</p>`;
+		sliderText.innerHTML += textP;
+	}
+
+	function changeText(num) {
+		sliderText.innerText = images[num].text;
+	}
+
+	function initSquare(){
+		let squareP = `<p class="square__text>${images[0].square}</p>`;
+		sliderSquare.innerHTML += squareP;
+	}
+
+	function changeSquare(num) {
+		sliderSquare.innerText = images[num].square;
+	}
+
+
 
 	function moveSlider(num){
 		sliderImages.querySelector('.active').classList.remove('active');
@@ -74,6 +105,8 @@ function initSlider(){
 		sliderDots.querySelector('.n' + num).classList.add('active');
 		sliderCity.querySelector('.active').classList.remove('active');
 		sliderCity.querySelector('.n' + num).classList.add('active');
+		changeText(num);
+		changeSquare(num);
 	}
 }
 
